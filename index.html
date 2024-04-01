@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>ThirdTimeMethod</title>
+  </head>
+  <body x-data="timer">
+    <div class="container">
+      <p class="state" x-text="toLabel(state)">=P</p>
+      <p class="state" x-text="state[0]">P</p>
+      <button class="state">⚙️</button>
+    </div>
+    <main class="box" @click="from">
+      <div class="timebox upper" :class="{active: state=='Working', moving: state!='Paused'}">
+        <p
+          x-data="{display: split_time(time)}"
+          x-init="$watch('time', value => {display = split_time(value)})"
+          class="time"
+          :class="(state!='Working') || 'active'"
+        >
+          <span x-text="display[0]"></span><span x-text="display[1]">00</span
+          ><span class="identifier">h</span><span x-text="display[2]">00</span
+          ><span class="identifier">m</span><span x-text="display[3]">00</span
+          ><span class="identifier">s</span>
+        </p>
+      </div>
+      <div class="timebox lower" :class="{active: state=='Resting', moving: state!='Paused'}">
+        <p
+          x-data="{display: split_time(time * fraction)}"
+          x-init="$watch('time', value => {display = split_time(value * fraction)})"
+          class="time"
+          :class="(state!='Resting') || 'active'"
+        >
+          <span x-text="display[0]"></span><span x-text="display[1]">00</span
+          ><span class="identifier">h</span><span x-text="display[2]">00</span
+          ><span class="identifier">m</span><span x-text="display[3]">00</span
+          ><span class="identifier">s</span>
+        </p>
+      </div>
+    </main>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
