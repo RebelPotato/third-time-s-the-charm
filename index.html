@@ -7,13 +7,17 @@
     <title>ThirdTimeMethod</title>
   </head>
   <body x-data="timer">
-    <div class="container">
+    <div class="container" @click="goto('Paused')">
       <p class="state" x-text="toLabel(state)">=P</p>
       <p class="state" x-text="state[0]">P</p>
       <button class="state">⚙️</button>
     </div>
-    <main class="box" @click="from">
-      <div class="timebox upper" :class="{active: state=='Working', moving: state!='Paused'}">
+    <main class="box">
+      <div
+        class="timebox upper"
+        :class="{active: state=='Working', moving: state!='Paused'}"
+        @click="goto(`Working`)"
+      >
         <p
           x-data="{display: split_time(time)}"
           x-init="$watch('time', value => {display = split_time(value)})"
@@ -26,7 +30,11 @@
           ><span class="identifier">s</span>
         </p>
       </div>
-      <div class="timebox lower" :class="{active: state=='Resting', moving: state!='Paused'}">
+      <div
+        class="timebox lower"
+        :class="{active: state=='Resting', moving: state!='Paused'}"
+        @click="goto(`Resting`)"
+      >
         <p
           x-data="{display: split_time(time * fraction)}"
           x-init="$watch('time', value => {display = split_time(value * fraction)})"

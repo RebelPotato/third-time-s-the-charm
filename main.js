@@ -43,29 +43,22 @@ Alpine.data("timer", () => ({
       this.time += val;
     }, time);
   },
+  goto(state) {
+    this.from();
+    this.to(state);
+  },
   from() {
     switch (this.state) {
-      case "Paused": {
-        return this.to("Working");
-      }
-      case "Working": {
-        clearInterval(this.timer);
-        this.timer = null;
-        return this.to("Resting");
-      }
+      case "Working":
       case "Resting": {
         clearInterval(this.timer);
         this.timer = null;
-        return this.to("Paused");
       }
     }
   },
   to(state) {
     this.state = state;
     switch (state) {
-      case "Paused": {
-        return;
-      }
       case "Working": {
         this.start(1, 1000);
         return;
